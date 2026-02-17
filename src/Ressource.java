@@ -47,4 +47,12 @@ public class Ressource {
         this.nourriture -= this.habitant;
     }
 
+    public void addBois(int bois){
+        this.bois += bois;
+    }
+
+    public void addNourriture(int nourriture){
+        this.nourriture += nourriture;
+    }
+
 }
