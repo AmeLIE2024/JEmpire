@@ -1,0 +1,58 @@
+public class Ressource {
+    
+    int bois;
+    int pierre;
+    int or;
+    int nourriture;
+    int habitant;
+    
+    public Ressource(int bois, int pierre, int or, int nourriture, int habitant) {
+        this.bois = bois;
+        this.pierre = pierre;
+        this.or = or;
+        this.nourriture = nourriture;
+        this.habitant = habitant;
+    }
+
+    public int getBois() {
+        return bois;
+    }
+
+    public void setBois(int bois) {
+        this.bois = bois;
+    }
+
+    public int getPierre() {
+        return pierre;
+    }
+
+    public void setPierre(int pierre) {
+        this.pierre = pierre;
+    }
+
+    public int getOr() {
+        return or;
+    }
+
+    public void setOr(int or) {
+        this.or = or;
+    }
+
+    public int getNourriture() {
+        return nourriture;
+    }
+
+    public void setNourriture(int nourriture) {
+        this.nourriture = nourriture;
+    }
+
+    public int getHabitant() {
+        return habitant;
+    }
+
+    public void setHabitant(int habitant) {
+        this.habitant = habitant;
+    }
+
+    
+}
