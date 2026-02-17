@@ -5,8 +5,10 @@ public class Ressource {
     int or;
     int nourriture;
     int habitant;
+    boolean mine;
 
-    public Ressource(int bois, int pierre, int or, int nourriture, int habitant) {
+    public Ressource(int bois, int pierre, int or, int nourriture, int habitant, boolean mine) {
+        this.mine = mine;
         this.bois = bois;
         this.pierre = pierre;
         this.or = or;
@@ -16,6 +18,18 @@ public class Ressource {
 
     public int getBois() {
         return bois;
+    }
+
+    public boolean getMine(){
+        return mine;
+    }
+
+    public void setMine(boolean mine){
+        this.mine = mine;
+    }
+
+    public void deleteWood(int bois){
+        this.bois -= bois;
     }
 
     public int getPierre() {
