@@ -4,7 +4,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Ressource ressourceJoueur = new Ressource(200, 0, 50, 100, 1, false, 0, false, 0);
+        Ressource ressourceJoueur = new Ressource(0, 0, 50, 100, 1, false, 0, false, 0);
         Scanner scanner = new Scanner(System.in);
         String victoryOrDeafeat = "";
         int tourJoueur = 0;
@@ -31,6 +31,24 @@ public class Main {
         }
     }
 
+    public static int readInt(Scanner scanner) {
+        System.out.print("Entrez un nombre: ");
+        String input;
+        boolean isValid = false;
+        int result = 0;
+        do {
+            input = scanner.nextLine();
+            try {
+                result = Integer.parseInt(input);
+                isValid = true;
+            } catch (Exception e) {
+                System.err.print("Entrez un nombre valide: ");
+            }
+        } while(!isValid);
+
+        return result;
+    }
+
     public static boolean victoryOrDefeatCondition(String victoryOrDeafeat) {
 
         if (victoryOrDeafeat.equals("deafeat")) {
@@ -44,7 +62,7 @@ public class Main {
     }
 
     public static void ExploreForest(Ressource ressourceJoueur) {
-        ressourceJoueur.addBois(2 * ressourceJoueur.getHabitant());
+        ressourceJoueur.addBois(3 * ressourceJoueur.getHabitant());
         ressourceJoueur.addNourriture(3 * ressourceJoueur.getHabitant());
         int aleatoire1 = (int) (Math.random() * 10);
         int aleatoire2 = (int) (Math.random() * 30);
@@ -72,12 +90,12 @@ public class Main {
 
     public static boolean menuCommerce(Scanner scanner, Ressource ressourceJoueur) {
         System.out.println("Menu de commerce :\n1 - commercer du bois pour de l'or\n2 - commercer de la pierre pour de l'or\n");
-        int choiceCommerce = scanner.nextInt();
+        int choiceCommerce = readInt(scanner);
         switch (choiceCommerce) {
             case 1:
-                if (ressourceJoueur.getBois() >= 10) {
-                    ressourceJoueur.deleteWood(10);
-                    ressourceJoueur.addGold(5);
+                if (ressourceJoueur.getBois() >= 30) {
+                    ressourceJoueur.deleteWood(30);
+                    ressourceJoueur.addGold(15);
                     return true;
                 } else {
                     System.out.println("Vous n'avez pas assez de bois");
@@ -108,7 +126,7 @@ public class Main {
             ressourceJoueur.addStone(5);
             ressourceJoueur.addGold(5);
         } else if (mineLevel == 2) {
-            int aleatoireGobelins = (int) (Math.random() * 15);
+            int aleatoireGobelins = (int) (Math.random() * 25);
             if (aleatoireGobelins == 10) {
                 System.out.println("Vous croisez une bande de gobelin, les mineurs ce défende mais certains meures");
                 ressourceJoueur.deletePeople(3);
@@ -129,7 +147,7 @@ public class Main {
         int aleatoireVeineRiche = (int) (Math.random() * 20);
         if (aleatoireVeineRiche == 10) {
             System.out.println("Vous avez trouvé une veine riche !");
-            ressourceJoueur.addGold(20);
+            ressourceJoueur.addGold(45);
         }
     }
 
@@ -138,23 +156,23 @@ public class Main {
         boolean isValid = false;
         do {
             if (ressourceJoueur.getMineLevel() == 0) {
-                createOrUpgradeMine = "2- Créer une mine: -10 bois";
+                createOrUpgradeMine = "Créer une mine        | -10 bois                                | Débloque accès à la mine|";
             } else {
-                createOrUpgradeMine = "2- Améliorer la mine: -50 bois";
+                createOrUpgradeMine = "Améliorer la mine     | -50 bois                                | Amélioration (max lvl.3)|";
             }
             System.out.println("\nQue souhaitez vous faire : \n");
             System.out.println("+-------+-----------------------+-----------------------------------------+-------------------------+");
             System.out.println("| Choix | Action                | Coût / Risque                           | Gain                    |");
             System.out.println("+-------+-----------------------+-----------------------------------------+-------------------------+");
             System.out.println("|   1   | Explorer la forêt     | Aucun                                   | +5 Bois, +3 Nourriture  |");
-            System.out.println("|   2   | "+createOrUpgradeMine+"        | -10 Bois                                | Débloque accès à la mine|");
+            System.out.println("|   2   | "+createOrUpgradeMine+"                                ");
             System.out.println("|   3   | Travailler à la mine  | -5 Nourriture                           | +5 Pierre, +2 Or        |");
             System.out.println("|   4   | Recruter un habitant  | -30 Or                                  | +1 habitant             |");
             System.out.println("|   5   | Commercer             | -5 Pierre +10 Or                        | -200 Or                 |");
             System.out.println("|   6   | Construire le Château | -100 Bois, -100 Pierre, | -40 Habitants |                         |");
             System.out.println("+-------+-----------------------+-----------------------------------------+-------------------------+");
 
-            int choice = scanner.nextInt();
+            int choice = readInt(scanner);
             switch (choice) {
                 case 1:
 
@@ -185,6 +203,7 @@ public class Main {
                         System.out.println("Vous avez construit une mine\n");
                         ressourceJoueur.setMine(true);
                         ressourceJoueur.upgradeMine();
+                        isValid = true;
                     } else if (ressourceJoueur.getMineLevel() >= 1 && ressourceJoueur.getMineLevel() < 3 && ressourceJoueur.getBois() >= 50) {
                         ressourceJoueur.deleteWood(50);
                         ressourceJoueur.upgradeMine();
