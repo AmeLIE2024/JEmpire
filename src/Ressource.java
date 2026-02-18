@@ -46,6 +46,10 @@ public class Ressource {
         this.or += gold;
     }
 
+    public void deleteGold(int gold){
+        this.or -= gold;
+    }
+
     public int getNourriture() {
         return nourriture;
     }
@@ -54,17 +58,18 @@ public class Ressource {
         return habitant;
     }
 
+    public void addPeople(int peopleToAdd){
+        this.habitant += peopleToAdd;
+    }
+
     public void feedPeople() {
-        if ( this.nourriture <= this.habitant){
+        if (this.habitant < this.nourriture ){
+            this.nourriture -= this.habitant;
+        } else {
             int minusHab = this.habitant-this.nourriture;
-            if(minusHab > this.habitant){
-                this.habitant -= minusHab;
-                this.nourriture = 0;
-            }else {
-                this.habitant=0;
-            }
+            this.habitant -= minusHab;
+            this.nourriture = 0;
         }
-        this.nourriture -= this.habitant;
     }
 
     public void addBois(int bois){
