@@ -41,6 +41,20 @@ public class Main {
         return true;
     }
 
+    public static void ExploreForest(Ressource ressourceJoueur){
+        ressourceJoueur.addBois(5 *ressourceJoueur.getHabitant());
+        ressourceJoueur.addNourriture(3 * ressourceJoueur.getHabitant());
+        int aleatoire1 = (int) (Math.random() * 10);
+        int aleatoire2 = (int) (Math.random() * 30);
+        if ( aleatoire1 == 5) {
+            System.out.println("Vous avez trouvé un coin à champignon !");
+            ressourceJoueur.addNourriture(10);
+        } else if ( aleatoire2 == 5) {
+            System.out.println("Vou avez ramassé des champignons toxiques. Vous perdez 10 nourritures");
+            ressourceJoueur.deleteFood(10);
+        }
+    }
+
     public static void createMine(Ressource ressourceJoueur) {
         ressourceJoueur.deleteWood(10);
     }
@@ -54,6 +68,21 @@ public class Main {
         ressourceJoueur.setCastle(true);
     }
 
+    public static void mineWork(Ressource ressourceJoueur){
+        ressourceJoueur.deleteFood(5);
+        ressourceJoueur.addStone(5);
+        ressourceJoueur.addGold(2);
+        int aleatoire3 =(int)(Math.random() * 20);
+        int aleatoire4 = (int) (Math.random() * 30);
+        if ( aleatoire3 == 10) {
+            System.out.println("Vous avez trouvé une veine riche !");
+            ressourceJoueur.addGold(20);
+        } else if (aleatoire4 == 10) {
+            System.out.println("Eboulement vous perdez 1 habitants !");
+            ressourceJoueur.deletePeople(1);
+        }
+    }
+
     public static void menu(Ressource ressourceJoueur, Scanner scanner) {
 
         boolean isValid = false;
@@ -63,18 +92,7 @@ public class Main {
             int choice = scanner.nextInt();
             switch (choice) {
                 case 1:
-                   
-                    ressourceJoueur.addBois(5 *ressourceJoueur.getHabitant());
-                    ressourceJoueur.addNourriture(3 * ressourceJoueur.getHabitant());
-                    int aleatoire1 = (int) (Math.random() * 10);
-                    int aleatoire2 = (int) (Math.random() * 30);
-                    if ( aleatoire1 == 5) {
-                        System.out.println("Vous avez trouvé un coin à champignon !");
-                        ressourceJoueur.addNourriture(10);
-                    } else if ( aleatoire2 == 5) {
-                        System.out.println("Vou avez ramassé des champignons toxiques. Vous perdez 10 nourritures");
-                        ressourceJoueur.deleteFood(10);
-                    }
+                    ExploreForest(ressourceJoueur);
                     isValid = true;
                     break;
                 case 2:
@@ -93,18 +111,7 @@ public class Main {
                     break;
                 case 3:
                     if (ressourceJoueur.getMine()) {
-                        ressourceJoueur.deleteFood(5);
-                        ressourceJoueur.addStone(5);
-                        ressourceJoueur.addGold(2);
-                        int aleatoire3 =(int)(Math.random() * 20);
-                        int aleatoire4 = (int) (Math.random() * 30);
-                        if ( aleatoire3 == 10) {
-                            System.out.println("Vous avez trouvé une veine riche !");
-                            ressourceJoueur.addGold(20);
-                        } else if (aleatoire4 == 10) {
-                            System.out.println("Eboulement vous perdez 1 habitants !");
-                            ressourceJoueur.deletePeople(1);
-                        }
+                        mineWork(ressourceJoueur);
                         isValid = true;
                     } else {
                         System.out.println("Vous n'avez pas contruit de mine");
