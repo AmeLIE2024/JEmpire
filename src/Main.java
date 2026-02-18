@@ -75,8 +75,9 @@ public class Main {
                 case 4: //Todo Recruter un habitant
 
                     break;
-                case 5: //Todo Commercer
-
+                case 5: 
+                    ressourceJoueur.deleteStone(5);
+                    ressourceJoueur.addGold(10);
                     break;
                 case 6: // Todo Construire le château
 

@@ -35,9 +35,15 @@ public class Ressource {
     public int getPierre() {
         return pierre;
     }
+    public void deleteStone(int stone){
+        this.pierre -= stone;
+    }
 
     public int getOr() {
         return or;
+    }
+    public void addGold(int gold){
+        this.or += gold;
     }
 
     public int getNourriture() {
