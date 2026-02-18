@@ -39,7 +39,7 @@ public class Main {
         return true;
     }
 
-    public static void createMine(Ressource ressourceJoueur){
+    public static void createMine(Ressource ressourceJoueur) {
         ressourceJoueur.deleteWood(10);
     }
 
@@ -65,19 +65,25 @@ public class Main {
                             ressourceJoueur.setMine(true);
                             isValid = true;
                         } else {
-                            System.out.println("Pas assez de bois");
+                            System.out.println("Ressources insufisantes: bois");
                         }
                     }
                     break;
                 case 3: // Todo Travailler à la mine
 
                     break;
-                case 4: //Todo Recruter un habitant
+                case 4: // Todo Recruter un habitant
 
                     break;
-                case 5: 
-                    ressourceJoueur.deleteStone(5);
-                    ressourceJoueur.addGold(10);
+                case 5:
+                    if(ressourceJoueur.getPierre()>5){
+                        ressourceJoueur.deleteStone(5);
+                        ressourceJoueur.addGold(10);
+                        isValid = true;
+                    }else {
+                        System.out.println("Ressources insuffisantes: pierres");
+                    }
+                    
                     break;
                 case 6: // Todo Construire le château
 
