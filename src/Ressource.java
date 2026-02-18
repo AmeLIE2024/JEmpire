@@ -6,18 +6,28 @@ public class Ressource {
     int nourriture;
     int habitant;
     boolean mine;
+    boolean castle;
 
-    public Ressource(int bois, int pierre, int or, int nourriture, int habitant, boolean mine) {
+    public Ressource(int bois, int pierre, int or, int nourriture, int habitant, boolean mine, boolean castle) {
         this.mine = mine;
         this.bois = bois;
         this.pierre = pierre;
         this.or = or;
         this.nourriture = nourriture;
         this.habitant = habitant;
+        this.castle = castle;
     }
 
     public int getBois() {
         return bois;
+    }
+
+    public boolean getCastle(){
+        return castle;
+    }
+
+    public void setCastle(boolean castle){
+        this.castle = castle;
     }
 
     public boolean getMine(){
@@ -61,6 +71,10 @@ public class Ressource {
 
     public int getHabitant() {
         return habitant;
+    }
+
+    public void deletePeople(int people){
+        this.habitant -=people;
     }
 
     public void addPeople(int peopleToAdd){

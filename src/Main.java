@@ -4,7 +4,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Ressource ressourceJoueur = new Ressource(0, 0, 50, 100, 1, false);
+        Ressource ressourceJoueur = new Ressource(0, 0, 50, 100, 1, false, false);
         Scanner scanner = new Scanner(System.in);
         String victoryOrDeafeat = "";
         int tourJoueur = 0;
@@ -19,8 +19,11 @@ public class Main {
                     + " | Habitant(s) : " + ressourceJoueur.getHabitant());
             menu(ressourceJoueur, scanner);
             ressourceJoueur.feedPeople();
-            if (ressourceJoueur.habitant == 0) {
+            if (ressourceJoueur.habitant <= 0) {
                 victoryOrDeafeat = "deafeat";
+            }
+            if (ressourceJoueur.getCastle()){
+                victoryOrDeafeat = "victory";
             }
             tourJoueur++;
         }
@@ -47,6 +50,10 @@ public class Main {
         ressourceJoueur.addPeople(1);
     }
 
+    public static void constructCastle(Ressource ressourceJoueur){
+        ressourceJoueur.setCastle(true);
+    }
+
     public static void menu(Ressource ressourceJoueur, Scanner scanner) {
 
         boolean isValid = false;
@@ -66,6 +73,7 @@ public class Main {
                     } else {
                         if (ressourceJoueur.getBois() >= 10) {
                             createMine(ressourceJoueur);
+                            System.out.println("Vous avez construit une mine\n");
                             ressourceJoueur.setMine(true);
                             isValid = true;
                         } else {
@@ -74,7 +82,7 @@ public class Main {
                     }
                     break;
                 case 3: 
-                    if(ressourceJoueur.getMine() && ressourceJoueur.getNourriture()>=5){
+                    if(ressourceJoueur.getMine()){
                         ressourceJoueur.deleteFood(5);
                         ressourceJoueur.addStone(5);
                         ressourceJoueur.addGold(2);
@@ -101,10 +109,20 @@ public class Main {
                     }
                     
                     break;
-                case 6: // Todo Construire le château
-
+                case 6:
+                    if ( ressourceJoueur.getHabitant() <= 40) {
+                        System.out.println("Pas assez d'habitant");
+                    }else if ( ressourceJoueur.getBois() < 100){
+                        System.out.println("Pas assez de bois");
+                    } else if ( ressourceJoueur.getOr() < 200) {
+                        System.out.println("Pas assez d'Or");
+                    } else if ( ressourceJoueur.getPierre() < 100) {
+                        System.out.println("Pas assez de pierre");
+                    }else {
+                        constructCastle(ressourceJoueur);
+                        isValid = true;
+                    }
                     break;
-
                 default:
                     break;
             }
