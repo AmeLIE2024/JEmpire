@@ -35,8 +35,13 @@ public class Ressource {
     public int getPierre() {
         return pierre;
     }
+
     public void deleteStone(int stone){
         this.pierre -= stone;
+    }
+
+    public void addStone(int stone){
+        this.pierre += stone;
     }
 
     public int getOr() {
@@ -78,6 +83,10 @@ public class Ressource {
 
     public void addNourriture(int nourriture){
         this.nourriture += nourriture;
+    }
+
+    public void deleteFood(int food){
+        this.nourriture -= food;
     }
 
 }

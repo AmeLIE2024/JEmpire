@@ -4,10 +4,11 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Ressource ressourceJoueur = new Ressource(0, 0, 50, 100, 51, false);
+        Ressource ressourceJoueur = new Ressource(0, 0, 50, 100, 1, false);
         Scanner scanner = new Scanner(System.in);
         String victoryOrDeafeat = "";
         int tourJoueur = 0;
+        
 
         System.out.println("\nBienvenue sur le jeu JEMPIRE !\n");
         while (victoryOrDefeatCondition(victoryOrDeafeat)) {
@@ -63,7 +64,7 @@ public class Main {
                     if (ressourceJoueur.getMine()) {
                         System.out.println("La mine est déjà crée");
                     } else {
-                        if (ressourceJoueur.getBois() > 10) {
+                        if (ressourceJoueur.getBois() >= 10) {
                             createMine(ressourceJoueur);
                             ressourceJoueur.setMine(true);
                             isValid = true;
@@ -72,10 +73,17 @@ public class Main {
                         }
                     }
                     break;
-                case 3: // Todo Travailler à la mine
-
+                case 3: 
+                    if(ressourceJoueur.getMine() && ressourceJoueur.getNourriture()>=5){
+                        ressourceJoueur.deleteFood(5);
+                        ressourceJoueur.addStone(5);
+                        ressourceJoueur.addGold(2);
+                        isValid = true;
+                    }else{
+                        System.out.println("Vous n'avez pas contruit de mine");
+                    }
                     break;
-                case 4: if (ressourceJoueur.getOr() > 30) {
+                case 4: if (ressourceJoueur.getOr() >= 30) {
                     recrut(ressourceJoueur);
                     isValid = true;
                 } else {
@@ -84,7 +92,7 @@ public class Main {
 
                     break;
                 case 5:
-                    if(ressourceJoueur.getPierre()>5){
+                    if(ressourceJoueur.getPierre()>=5){
                         ressourceJoueur.deleteStone(5);
                         ressourceJoueur.addGold(10);
                         isValid = true;
