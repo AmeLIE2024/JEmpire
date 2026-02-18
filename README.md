@@ -14,12 +14,14 @@ JEmpire est un jeu de gestion de stratégie au tour par tour développé en Java
 
 La commande suivante compile tous les fichiers sources présents dans le dossier src et place les fichiers compilés dans le dossier build :
 
-```bashjavac -d build .\src\*
+```bash
+javac -d build .\src\*
 ```
 
 ### Exécution
 
 La commande suivante lance le jeu en utilisant les fichiers compilés présents dans le dossier build :
 
-```bashjava -cp build/ Main
+```bash
+java -cp build/ Main
 ```
