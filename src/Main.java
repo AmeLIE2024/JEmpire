@@ -16,7 +16,7 @@ public class Main {
             System.out.println("+--------------------------------------------------------------------------------------------------+");
             System.out.println("| Bois : " + ressourceJoueur.getBois() + " | Pierre : " + ressourceJoueur.getPierre() + " | Or : "
                     + ressourceJoueur.getOr() + " | Nourriture : " + ressourceJoueur.getNourriture()
-                    + " | Habitant(s) : " + ressourceJoueur.getHabitant() + " | Farmer(s) : " + ressourceJoueur.getFarmer() + " | Mine : " + (ressourceJoueur.getMine() ? "Oui" : "Non") + "  |");
+                    + " | Habitant(s) : " + ressourceJoueur.getHabitant() + " | Farmer(s) : " + ressourceJoueur.getFarmer() + " | Mine : " + (ressourceJoueur.getMine() ? "lvl."+ressourceJoueur.getMineLevel() : "Non") + "  |");
             System.out.println("+--------------------------------------------------------------------------------------------------+");
             menu(ressourceJoueur, scanner);
             ressourceJoueur.feedPeople();
@@ -62,15 +62,23 @@ public class Main {
     }
 
     public static void ExploreForest(Ressource ressourceJoueur) {
-        ressourceJoueur.addBois(3 * ressourceJoueur.getHabitant());
+        ressourceJoueur.addBois(5 *ressourceJoueur.getHabitant());
+        if(ressourceJoueur.getFarmer() > 0){
+            ressourceJoueur.addNourriture(10*ressourceJoueur.getFarmer());
+        }
+
         ressourceJoueur.addNourriture(3 * ressourceJoueur.getHabitant());
         int aleatoire1 = (int) (Math.random() * 10);
         int aleatoire2 = (int) (Math.random() * 30);
-        if (aleatoire1 == 5) {
-            System.out.println("Vous avez trouvé un coin à champignon !");
+        if ( aleatoire1 == 5) {
+            System.err.println("****************************************************************");
+            System.out.println("Vous avez trouvé un coin à champignon ! => +10 nourritures !");
+            System.err.println("****************************************************************");
             ressourceJoueur.addNourriture(10);
-        } else if (aleatoire2 == 5) {
-            System.out.println("Vou avez ramassé des champignons toxiques. Vous perdez 10 nourritures");
+        } else if ( aleatoire2 == 5) {
+            System.err.println("****************************************************************");
+            System.out.println("Vou avez ramassé des champignons toxiques. - 10 nourritures !");
+            System.err.println("****************************************************************");
             ressourceJoueur.deleteFood(10);
         }
     }
@@ -175,26 +183,7 @@ public class Main {
             int choice = readInt(scanner);
             switch (choice) {
                 case 1:
-
-                    ressourceJoueur.addBois(5 *ressourceJoueur.getHabitant());
-                    if(ressourceJoueur.getFarmer() > 0){
-                        ressourceJoueur.addNourriture(10*ressourceJoueur.getFarmer());
-                    }
-
-                    ressourceJoueur.addNourriture(3 * ressourceJoueur.getHabitant());
-                    int aleatoire1 = (int) (Math.random() * 10);
-                    int aleatoire2 = (int) (Math.random() * 30);
-                    if ( aleatoire1 == 5) {
-                        System.err.println("****************************************************************");
-                        System.out.println("Vous avez trouvé un coin à champignon ! => +10 nourritures !");
-                        System.err.println("****************************************************************");
-                        ressourceJoueur.addNourriture(10);
-                    } else if ( aleatoire2 == 5) {
-                        System.err.println("****************************************************************");
-                        System.out.println("Vou avez ramassé des champignons toxiques. - 10 nourritures !");
-                        System.err.println("****************************************************************");
-                        ressourceJoueur.deleteFood(10);
-                    }
+                    ExploreForest(ressourceJoueur);
                     isValid = true;
                     break;
                 case 2:
