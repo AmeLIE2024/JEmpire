@@ -4,18 +4,20 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Ressource ressourceJoueur = new Ressource(200, 0, 50, 100, 1, false, 0, false);
+        Ressource ressourceJoueur = new Ressource(200, 0, 50, 100, 1, false, 0, false, 0);
         Scanner scanner = new Scanner(System.in);
         String victoryOrDeafeat = "";
         int tourJoueur = 0;
+        System.out.println("\nBienvenue sur le jeu JEMPIRE ! \n");
 
-        System.out.println("\nBienvenue sur le jeu JEMPIRE !\n");
         while (victoryOrDefeatCondition(victoryOrDeafeat)) {
             System.out.println("Tour : " + tourJoueur + "\n");
-            System.out.println("Vos ressources : \n" +
-                    "Bois : " + ressourceJoueur.getBois() + " | Pierre : " + ressourceJoueur.getPierre() + " | Or : "
+            System.out.println("Vos ressources : \n" );
+            System.out.println("+--------------------------------------------------------------------------------------------------+");
+            System.out.println("| Bois : " + ressourceJoueur.getBois() + " | Pierre : " + ressourceJoueur.getPierre() + " | Or : "
                     + ressourceJoueur.getOr() + " | Nourriture : " + ressourceJoueur.getNourriture()
-                    + " | Habitant(s) : " + ressourceJoueur.getHabitant());
+                    + " | Habitant(s) : " + ressourceJoueur.getHabitant() + " | Farmer(s) : " + ressourceJoueur.getFarmer() + " | Mine : " + (ressourceJoueur.getMine() ? "Oui" : "Non") + "  |");
+            System.out.println("+--------------------------------------------------------------------------------------------------+");
             menu(ressourceJoueur, scanner);
             ressourceJoueur.feedPeople();
             if (ressourceJoueur.getHabitant() <= 0) {
@@ -35,7 +37,7 @@ public class Main {
             System.out.println("Loooooooooosssssserrrrrr !!!!");
             return false;
         } else if (victoryOrDeafeat.equals("victory")) {
-            System.out.println("Bravo vous avez créé votre chateau");
+            System.out.println("*********Bravo vous avez créé votre chateau*************");
             return false;
         }
         return true;
@@ -140,12 +142,41 @@ public class Main {
             } else {
                 createOrUpgradeMine = "2- Améliorer la mine: -50 bois";
             }
-            System.out.println(
-                    "\nQue souhaitez vous faire : \n\t1- Explorer la forêt: +2 bois x nombre d'habitant | +3 nourritures x nombre d'habitant \n\t" + createOrUpgradeMine + "\n\t3- Travailler à la mine: -5 Nourriture | +5 Pierre | +2 Or\n\t4- Recruter un habitant: -30 Or\n\t5- Commercer: -5 Pierre | +10 Or\n\t6- Construire le Château: -100 Bois | -100 Pierre | -200 Or | -40 Habitants");
+            System.out.println("\nQue souhaitez vous faire : \n");
+            System.out.println("+-------+-----------------------+-----------------------------------------+-------------------------+");
+            System.out.println("| Choix | Action                | Coût / Risque                           | Gain                    |");
+            System.out.println("+-------+-----------------------+-----------------------------------------+-------------------------+");
+            System.out.println("|   1   | Explorer la forêt     | Aucun                                   | +5 Bois, +3 Nourriture  |");
+            System.out.println("|   2   | "+createOrUpgradeMine+"        | -10 Bois                                | Débloque accès à la mine|");
+            System.out.println("|   3   | Travailler à la mine  | -5 Nourriture                           | +5 Pierre, +2 Or        |");
+            System.out.println("|   4   | Recruter un habitant  | -30 Or                                  | +1 habitant             |");
+            System.out.println("|   5   | Commercer             | -5 Pierre +10 Or                        | -200 Or                 |");
+            System.out.println("|   6   | Construire le Château | -100 Bois, -100 Pierre, | -40 Habitants |                         |");
+            System.out.println("+-------+-----------------------+-----------------------------------------+-------------------------+");
+
             int choice = scanner.nextInt();
             switch (choice) {
                 case 1:
-                    ExploreForest(ressourceJoueur);
+
+                    ressourceJoueur.addBois(5 *ressourceJoueur.getHabitant());
+                    if(ressourceJoueur.getFarmer() > 0){
+                        ressourceJoueur.addNourriture(10*ressourceJoueur.getFarmer());
+                    }
+
+                    ressourceJoueur.addNourriture(3 * ressourceJoueur.getHabitant());
+                    int aleatoire1 = (int) (Math.random() * 10);
+                    int aleatoire2 = (int) (Math.random() * 30);
+                    if ( aleatoire1 == 5) {
+                        System.err.println("****************************************************************");
+                        System.out.println("Vous avez trouvé un coin à champignon ! => +10 nourritures !");
+                        System.err.println("****************************************************************");
+                        ressourceJoueur.addNourriture(10);
+                    } else if ( aleatoire2 == 5) {
+                        System.err.println("****************************************************************");
+                        System.out.println("Vou avez ramassé des champignons toxiques. - 10 nourritures !");
+                        System.err.println("****************************************************************");
+                        ressourceJoueur.deleteFood(10);
+                    }
                     isValid = true;
                     break;
                 case 2:
@@ -164,7 +195,6 @@ public class Main {
                     } else {
                         System.out.println("Ressources insufisantes: bois");
                     }
-
                     break;
                 case 3:
                     if (ressourceJoueur.getMine()) {
@@ -176,6 +206,12 @@ public class Main {
                     break;
                 case 4:
                     if (ressourceJoueur.getOr() >= 30) {
+                        int aleatoire5 = (int) (Math.random() * 20);
+                        if (aleatoire5 == 10) {
+                            System.out.println("L'habitant recruté est un paysan ! + 10 nourritures par tour !");
+                            ressourceJoueur.addFarmer(1);
+                            ressourceJoueur.addNourriture(10);
+                        }
                         recrut(ressourceJoueur);
                         isValid = true;
                     } else {
