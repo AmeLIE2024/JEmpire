@@ -1,14 +1,15 @@
 public class Ressource {
 
-    int bois;
-    int pierre;
-    int or;
-    int nourriture;
-    int habitant;
-    boolean mine;
-    boolean castle;
+    private int bois;
+    private int pierre;
+    private int or;
+    private int nourriture;
+    private int habitant;
+    private boolean mine;
+    private boolean castle;
+    private int mineLevel;
 
-    public Ressource(int bois, int pierre, int or, int nourriture, int habitant, boolean mine, boolean castle) {
+    public Ressource(int bois, int pierre, int or, int nourriture, int habitant, boolean mine, int minLevel , boolean castle) {
         this.mine = mine;
         this.bois = bois;
         this.pierre = pierre;
@@ -16,6 +17,15 @@ public class Ressource {
         this.nourriture = nourriture;
         this.habitant = habitant;
         this.castle = castle;
+        this.mineLevel = minLevel;
+    }
+
+    public int getMineLevel(){
+        return mineLevel;
+    }
+
+    public void upgradeMine(){
+        this.mineLevel += 1;
     }
 
     public int getBois() {
