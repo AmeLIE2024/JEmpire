@@ -128,7 +128,7 @@ public class Main {
         } else if (mineLevel == 2) {
             int aleatoireGobelins = (int) (Math.random() * 25);
             if (aleatoireGobelins == 10) {
-                System.out.println("Vous croisez une bande de gobelin, les mineurs ce défende mais certains meures");
+                System.out.println("Vous croisez une bande de gobelin, les mineurs se défendent mais certains meurent / Vous perdez 3 habitants !");
                 ressourceJoueur.deletePeople(3);
             }
             ressourceJoueur.deleteFood(3);
@@ -140,7 +140,7 @@ public class Main {
             ressourceJoueur.addGold(15);
             int aleatoireBalrog = (int) (Math.random() * 100);
             if (aleatoireBalrog == 1) {
-                System.out.println("Vous avez creuser trop profond et vous avez trouver un balrog");
+                System.out.println("Vous avez creusé trop profond et vous avez trouvé un balrog. Il ne vous reste plus qu'un seul habitant !");
                 ressourceJoueur.deletePeople(ressourceJoueur.getHabitant() - 1);
             }
         }
