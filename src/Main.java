@@ -4,14 +4,13 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Ressource ressourceJoueur = new Ressource(50, 0, 50, 100, 21, false);
+        Ressource ressourceJoueur = new Ressource(0, 0, 50, 100, 51, false);
         Scanner scanner = new Scanner(System.in);
-        boolean condition = true;
         String victoryOrDeafeat = "";
         int tourJoueur = 0;
 
         System.out.println("\nBienvenue sur le jeu JEMPIRE !\n");
-        while (condition) {
+        while (victoryOrDefeatCondition(victoryOrDeafeat)) {
             System.out.println("Tour : " + tourJoueur + "\n");
             System.out.println("Vos ressources : \n" +
                     "Bois : " + ressourceJoueur.getBois() + " | Pierre : " + ressourceJoueur.getPierre() + " | Or : "
@@ -22,7 +21,6 @@ public class Main {
             if (ressourceJoueur.habitant == 0) {
                 victoryOrDeafeat = "deafeat";
             }
-            condition = victoryOrDefeatCondition(victoryOrDeafeat);
             tourJoueur++;
         }
     }
@@ -41,6 +39,11 @@ public class Main {
 
     public static void createMine(Ressource ressourceJoueur){
         ressourceJoueur.deleteWood(10);
+    }
+
+    public static void recrut(Ressource ressourceJoueur){
+        ressourceJoueur.deleteGold(30);
+        ressourceJoueur.addPeople(1);
     }
 
     public static void menu(Ressource ressourceJoueur, Scanner scanner) {
@@ -72,7 +75,12 @@ public class Main {
                 case 3: // Todo Travailler à la mine
 
                     break;
-                case 4: //Todo Recruter un habitant
+                case 4: if (ressourceJoueur.getOr() > 30) {
+                    recrut(ressourceJoueur);
+                    isValid = true;
+                } else {
+                    System.out.println("Pas assez d'or");
+                }
 
                     break;
                 case 5: //Todo Commercer
